@@ -3,6 +3,7 @@
  */
 package com.flatironschool.javacs;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +41,13 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	 * 
 	 */
 	protected void rehash() {
-        // TODO: fill this in.
-        throw new UnsupportedOperationException();
+		List<Entry<K,V>> entries = new ArrayList<Entry<K,V>>();
+		for (int i=0; i<maps.size(); i++) {
+			entries.addAll(maps.get(i).getEntries());
+		}
+        makeMaps(maps.size() * 2);
+        for (int i=0; i < entries.size(); i++)
+        	super.put(entries.get(i).getKey(), entries.get(i).getValue());
 	}
 
 	/**
